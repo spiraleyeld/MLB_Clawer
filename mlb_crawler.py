@@ -4,20 +4,20 @@ import requests as r
 import json
 
 
-###### ¨BÆJ¤@
 
 
-# team ¬ÛÃö¸ê°TªºjsonÀÉ
+
+# team ç›¸é—œè³‡è¨Šçš„jsonæª”
 res = r.get("http://newyork.yankees.mlb.com/lookup/json/named.team_hitting_season_leader_master.bam?season=2016&sort_order=%27desc%27&sort_column=%27avg%27&game_type=%27R%27&sport_code=%27mlb%27")
 
 mlb_teamInfo = res.json()
 
 team_detail = mlb_teamInfo['team_hitting_season_leader_master']['queryResults']['row']
 
-# team id & ¥ş¦W
+# team id & å…¨å
 team_idFullname = {}
 
-# team ¥u¦sid
+# team åªå­˜id
 team_id = []
 
 
@@ -33,28 +33,28 @@ allMax = []
     
 
 
-# ÁÉ©u±q2000~2005
-# ¦¹³B§ó´«±ı¬d¸ß¤§³sÄò¦~«×
+# è³½å­£å¾2000~2005
+# æ­¤è™•æ›´æ›æ¬²æŸ¥è©¢ä¹‹é€£çºŒå¹´åº¦
 for yy in range(2000,2006):
     for Id in team_id:
         year = yy
         teamId = Id
         
-        # ¦U¶¤¦U¦~«×ªº²y­û¦W³æ
+        # å„éšŠå„å¹´åº¦çš„çƒå“¡åå–®
         res1 = r.get("http://newyork.yankees.mlb.com/pubajax/wf/flow/stats.splayer?season={}&sort_order=%27desc%27&sort_column=%27avg%27&stat_type=hitting&page_type=SortablePlayer&team_id={}&game_type=%27R%27&player_pool=ALL&season_type=ANY&sport_code=%27mlb%27&results=1000".format(year, teamId))
 
         player_Info = res1.json()
 
         player_detail = player_Info['stats_sortable_player']['queryResults']['row']
 
-        # player id & ¥ş¦W
+        # player id & å…¨å
         player_idFullname = {}
 
         
 
         for player in player_detail:
 
-            # player ¥u¦sid
+            # player åªå­˜id
             player_id = []
             player_idFullname[player['player_id']]=player['name_display_first_last']
             player_id.append(yy)
@@ -68,16 +68,16 @@ for yy in range(2000,2006):
 
 allMax.insert(0,['Season','Team_ID','Team_Name','Player_ID','Player_Name'])
 
-# ±N§¹¦¨ªº¦W³æList «ü©wµ¹¤@ÅÜ¼Æ¡A¬°«á¼g¤J¤§°Ñ·ÓÅÜ¼Æ(¤]¥i¤£°µ)
+# å°‡å®Œæˆçš„åå–®List æŒ‡å®šçµ¦ä¸€è®Šæ•¸ï¼Œç‚ºå¾Œå¯«å…¥ä¹‹åƒç…§è®Šæ•¸(ä¹Ÿå¯ä¸åš)
 data = allMax
 
-# ¦¹³B¶ñ¤J±ıÀx¦s¤§¦UÁÉ©u¦U²y¶¤¤§¥X¾Ô¦W³æ
+# æ­¤è™•å¡«å…¥æ¬²å„²å­˜ä¹‹å„è³½å­£å„çƒéšŠä¹‹å‡ºæˆ°åå–®
 f = open("playerSeason.csv","w")
 w = csv.writer(f)
 w.writerows(data)
 f.close()
 
-# ±NallMax(¦UÁÉ©u¦U²y¶¤¤§¥X¾Ô¦W³æ)±a¤Jºô§}¨Óª¦gamelog
+# å°‡allMax(å„è³½å­£å„çƒéšŠä¹‹å‡ºæˆ°åå–®)å¸¶å…¥ç¶²å€ä¾†çˆ¬gamelog
 gamelog_list = []
 
 for record in range(1,len(allMax)):
@@ -99,7 +99,7 @@ for record in range(1,len(allMax)):
         gamelog_list.append(log)
         print(log)
 
-# ¬ö¿ı¹ê»Ú¦¨¥\ªº­È & ¥¢±Ñªº­È( ¦]¬°¸ÓJSON·|¦s¤@²ÕªíÀY¡A­n®³±¼¡A©Ò¥H±N¥¿½Tªº¦s¶iActual_List )       
+# ç´€éŒ„å¯¦éš›æˆåŠŸçš„å€¼ & å¤±æ•—çš„å€¼( å› ç‚ºè©²JSONæœƒå­˜ä¸€çµ„è¡¨é ­ï¼Œè¦æ‹¿æ‰ï¼Œæ‰€ä»¥å°‡æ­£ç¢ºçš„å­˜é€²Actual_List )       
 Actual_List = []
 Error_List = []
 for Log in gamelog_list:
@@ -111,7 +111,7 @@ for Log in gamelog_list:
         print(type(Log))
         
 
-# ¦]¬°ÅıCSV ¯à¥¿±`¼g¤JÀÉ®×¡A»İ±N¸ê®Æ¤@²Õ¤@²Õ¥]¶i¥h¡A¦ı¬O¦]¬°­n"®Ö¹ïªíÀY!!!!" ©Ò¥H¤@²Õ¼Æ¾Ú·f°t¤@²ÕªíÀY¡A¥B­n¦P®É¦s¤J¡A¤£µM¶¶§Ç·|¶]±¼        
+# å› ç‚ºè®“CSV èƒ½æ­£å¸¸å¯«å…¥æª”æ¡ˆï¼Œéœ€å°‡è³‡æ–™ä¸€çµ„ä¸€çµ„åŒ…é€²å»ï¼Œä½†æ˜¯å› ç‚ºè¦"æ ¸å°è¡¨é ­!!!!" æ‰€ä»¥ä¸€çµ„æ•¸æ“šæ­é…ä¸€çµ„è¡¨é ­ï¼Œä¸”è¦åŒæ™‚å­˜å…¥ï¼Œä¸ç„¶é †åºæœƒè·‘æ‰        
 totalList = Actual_List
 list_goodgame = []
 kk = []
@@ -132,7 +132,7 @@ for i in totalList:
 
 
 
-# ±Ngamelog¼g¶iÀÉ®×¤¤ 
+# å°‡gamelogå¯«é€²æª”æ¡ˆä¸­ 
 data = list_goodgame
 
 
