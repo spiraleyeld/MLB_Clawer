@@ -100,6 +100,7 @@ for record in range(1,len(allMax)):
         print(log)
 
 # 紀錄實際成功的值 & 失敗的值( 因為該JSON會存一組表頭，要拿掉，所以將正確的存進Actual_List )       
+# 更正確的做法應該是將error值也存成一份檔案，後續若有更正再弄:P
 Actual_List = []
 Error_List = []
 for Log in gamelog_list:
