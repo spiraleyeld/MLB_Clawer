@@ -1,1 +1,1 @@
-This is crawler for GameLog of MLB
+This is crawler for Gamelog of MLB
